@@ -1,0 +1,84 @@
+```
+
+package server;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class Server extends JFrame{
+      JPanel panel =new JPanel();
+      JPanel panel_down= new JPanel();
+      JLabel Nick_Lb= new JLabel("찾는 DB의 닉네임");
+      JLabel port_Lb= new JLabel("포트");
+      JTextField Port= new JTextField(5);
+      JTextField Nick= new JTextField(10);
+      JButton search =new JButton("검색");
+      JScrollPane scrollPane_chat = new JScrollPane(chat);
+      static JTextArea connect_list = new JTextArea(15,0);
+      static JTextArea chat = new JTextArea(30,0);
+      JScrollPane scrollPane_connect = new JScrollPane(connect_list);
+      JLabel connect_Lb = new JLabel("현재 접속한 목록/");
+      JLabel delete_Lb = new JLabel("삭제할 데이터 닉네임");
+      JLabel deletePort_Lb = new JLabel("포트");
+      JTextField deletePort = new JTextField(5);
+      JButton delete_button = new JButton("삭제");
+      JTextField delete = new JTextField(10);
+      static ArrayList<Socket> list= new ArrayList<Socket>();
+      static HashMap<String,Socket> Sokcet_list = new HashMap<>();
+   public Server() {
+        Jdbc db=new Jdbc();
+        db.start();
+        new Server_accept().start();
+        chat.setFont(chat.getFont().deriveFont(20.0f)); //폰트 크기
+        connect_list.setFont(chat.getFont().deriveFont(20.0f));
+        chat.setEnabled(false);
+        connect_list.setEnabled(false);
+        setSize(700,1000);
+        setTitle("Server");
+        chat.setBackground(Color.black);
+        connect_list.setBackground(Color.black);    
+        search.addActionListener(e->{ //검색 기록
+        	db.select(Nick.getText(), Port.getText());
+        	Nick.setText("");
+        	Port.setText("");
+        });
+        delete_button.addActionListener(e->{
+           db.delete(delete.getText(),deletePort.getText());
+           delete.setText("");
+           deletePort.setText("");
+        });
+        panel.add(Nick_Lb);
+        panel.add(Nick);
+        panel.add(port_Lb);
+        panel.add(Port);
+        panel.add(search);   
+        panel_down.add(connect_Lb);
+        panel_down.add(delete_Lb);
+        panel_down.add(delete);
+        panel_down.add(deletePort_Lb);
+        panel_down.add(deletePort);
+        panel_down.add(delete_button);
+        panel_down.add(scrollPane_connect);
+        add(panel,BorderLayout.NORTH);
+        add(scrollPane_chat,BorderLayout.CENTER);
+        add(panel_down,BorderLayout.SOUTH);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   }
+   public static void main(String[] args) {
+      Server i = new Server();
+   }
+}
+
+```
