@@ -21,9 +21,7 @@ TCP를 활용한 채팅 프로그램을 만들기로 했으며 개인적으로 �
 ![image](https://user-images.githubusercontent.com/80230579/191724655-522482c2-4cdb-4edf-9c9d-47107c998076.png)
 결과
 ![image](https://user-images.githubusercontent.com/80230579/191724716-cfb992e1-6550-477c-8a44-d8e50e6fd6e3.png)
-클라이언트 
 ![image](https://user-images.githubusercontent.com/80230579/191724741-b6fc4d39-1a28-485f-891f-69c2fea554cb.png)
-서버
 
 결론
 
